@@ -31,10 +31,11 @@ const Navbar = () => {
 
         <button
           onClick={() => setLanguage(language === 'en' ? 'cz' : 'en')}
-          className="flex items-center gap-2 text-xl hover:scale-110 transition-transform active:scale-95"
+          className="flex items-center gap-2 text-xl hover:scale-110 transition-transform active:scale-95 cursor-pointer"
           title={language === 'en' ? 'Switch to Czech' : 'Switch to English'}
+          aria-label={language === 'en' ? 'Switch to Czech' : 'Switch to English'}
         >
-          {language === 'en' ? '🇺🇸' : '🇨🇿'}
+          {language === 'en' ? '🇨🇿' : '🇺🇸'}
         </button>
       </div>
     </nav>
