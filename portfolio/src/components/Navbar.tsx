@@ -31,10 +31,10 @@ const Navbar = () => {
 
         <button
           onClick={() => setLanguage(language === 'en' ? 'cz' : 'en')}
-          className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-blue-500 hover:text-blue-400 transition-colors"
+          className="flex items-center gap-2 text-xl hover:scale-110 transition-transform active:scale-95"
+          title={language === 'en' ? 'Switch to Czech' : 'Switch to English'}
         >
-          <Languages size={18} />
-          <span>{language}</span>
+          {language === 'en' ? '🇺🇸' : '🇨🇿'}
         </button>
       </div>
     </nav>

@@ -1,4 +1,5 @@
-import { Calendar, ExternalLink } from 'lucide-react';
+import { useState } from 'react';
+import { Calendar, ExternalLink, Heart } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const PostList = () => {
@@ -10,7 +11,13 @@ const PostList = () => {
     'lis-F0Wp0Eo'
   ];
 
-  const clicks = ['412', '856', '231'];
+  const [clicks, setClicks] = useState([412, 856, 231]);
+
+  const handleIncrement = (index: number) => {
+    const newClicks = [...clicks];
+    newClicks[index] += 1;
+    setClicks(newClicks);
+  };
 
   const posts = t.sections.posts.items.map((item, idx) => ({
     ...item,
@@ -22,7 +29,7 @@ const PostList = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {posts.map((post) => (
+      {posts.map((post, idx) => (
         <div key={post.id} className="bg-[#12121e]/80 backdrop-blur-xl border border-white/10 rounded-[2.5rem] overflow-hidden group hover:border-red-500/30 transition-all duration-500 shadow-2xl flex flex-col">
 
           {/* Header */}
@@ -32,10 +39,13 @@ const PostList = () => {
                 <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
                 <span className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em]">{post.type}</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <ExternalLink size={10} className="text-gray-500" />
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{post.clicks} {t.sections.posts.clicks}</span>
-              </div>
+              <button
+                onClick={() => handleIncrement(idx)}
+                className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 px-2 py-1 rounded-lg transition-colors border border-white/5 group/btn"
+              >
+                <Heart size={12} className="text-red-500 group-hover/btn:fill-red-500 transition-all" />
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{post.clicks}</span>
+              </button>
             </div>
             <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
                <Calendar size={12} className="text-blue-500" />
@@ -70,15 +80,25 @@ const PostList = () => {
                     <img src="https://minotar.net/helm/MiniOmega_69/32.png" alt="MiniOmega_69" className="w-8 h-8 rounded-full border-2 border-white/10 shadow-lg" />
                     <span className="text-xs font-bold text-gray-300 tracking-wider">MiniOmega_69</span>
                 </div>
-                {post.link ? (
-                  <a href={post.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs font-black text-blue-500 hover:text-red-500 transition-all uppercase tracking-widest">
-                      {t.sections.posts.visit} <ExternalLink size={14} />
-                  </a>
-                ) : (
-                  <a href={`https://youtu.be/${post.url.split('/').pop()}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs font-black text-blue-500 hover:text-red-500 transition-all uppercase tracking-widest">
-                      {t.sections.posts.watch} <ExternalLink size={14} />
-                  </a>
-                )}
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={() => handleIncrement(idx)}
+                    className="flex items-center gap-2 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 px-3 py-1.5 rounded-xl transition-all group/like active:scale-90"
+                  >
+                    <Heart size={14} className="text-red-500 group-hover/like:fill-red-500" />
+                    <span className="text-[10px] font-black text-red-500 uppercase tracking-widest">{post.clicks}</span>
+                  </button>
+
+                  {post.link ? (
+                    <a href={post.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs font-black text-blue-500 hover:text-red-500 transition-all uppercase tracking-widest">
+                        {t.sections.posts.visit} <ExternalLink size={14} />
+                    </a>
+                  ) : (
+                    <a href={`https://youtu.be/${post.url.split('/').pop()}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs font-black text-blue-500 hover:text-red-500 transition-all uppercase tracking-widest">
+                        {t.sections.posts.watch} <ExternalLink size={14} />
+                    </a>
+                  )}
+                </div>
             </div>
           </div>
         </div>
