@@ -4,15 +4,16 @@ import Navbar from './components/Navbar';
 import MinecraftCharacter from './components/MinecraftCharacter';
 import PostList from './components/PostList';
 import ContactModal from './components/ContactModal';
-import { Github, Youtube, Twitter, Trophy, MessageSquare, Play, Info } from 'lucide-react';
+import { Youtube, Trophy, MessageSquare, Play, Info, Instagram, Music2 } from 'lucide-react';
+import { useLanguage } from './context/LanguageContext';
 
 function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const { t } = useLanguage();
 
   const stats = [
-    { label: 'Followers', value: '1.2k', icon: <Youtube size={16} className="text-red-500" /> },
-    { label: 'Achievements', value: '85', icon: <Trophy size={16} className="text-yellow-500" /> },
-    { label: 'Servers Played', value: '12', icon: <MessageSquare size={16} className="text-blue-500" /> },
+    { label: t.sidebar.exp, value: '0.5', icon: <Trophy size={16} className="text-yellow-500" /> },
+    { label: t.sidebar.promoted, value: '3', icon: <MessageSquare size={16} className="text-blue-500" /> },
   ];
 
   return (
@@ -50,7 +51,7 @@ function App() {
                 <h1 className="text-4xl font-black tracking-tight mb-2 bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent">
                   MiniOmega_69
                 </h1>
-                <p className="text-gray-400 font-medium tracking-wide uppercase text-xs">Minecraft Enthusiast & Creator</p>
+                <p className="text-gray-400 font-medium tracking-wide uppercase text-xs">{t.sidebar.title}</p>
               </div>
 
               <div className="w-full space-y-3 mb-8">
@@ -62,22 +63,22 @@ function App() {
                       </div>
                       <span className="text-gray-400 text-sm font-medium">{stat.label}</span>
                     </div>
-                    <span className="font-bold text-white tracking-wider">{stat.value}</span>
+                    <span className="font-bold text-white tracking-wider">{stat.value} {idx === 0 ? t.sidebar.expUnit : ''}</span>
                   </div>
                 ))}
               </div>
 
               <div className="flex gap-4 mb-8">
-                <a href="#" className="p-4 bg-white/5 hover:bg-red-500/10 border border-white/10 rounded-2xl transition-all hover:scale-110"><Youtube size={22} className="text-red-500" /></a>
-                <a href="#" className="p-4 bg-white/5 hover:bg-blue-500/10 border border-white/10 rounded-2xl transition-all hover:scale-110"><Twitter size={22} className="text-blue-400" /></a>
-                <a href="#" className="p-4 bg-white/5 hover:bg-gray-500/10 border border-white/10 rounded-2xl transition-all hover:scale-110"><Github size={22} /></a>
+                <a href="https://youtube.com/@MiniOmega_69" target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 hover:bg-red-500/10 border border-white/10 rounded-2xl transition-all hover:scale-110"><Youtube size={22} className="text-red-500" /></a>
+                <a href="https://instagram.com/jakubecz._.j" target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 hover:bg-pink-500/10 border border-white/10 rounded-2xl transition-all hover:scale-110"><Instagram size={22} className="text-pink-500" /></a>
+                <a href="https://tiktok.com/@MiniOmega_69" target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 hover:bg-cyan-500/10 border border-white/10 rounded-2xl transition-all hover:scale-110"><Music2 size={22} className="text-cyan-400" /></a>
               </div>
 
               <button
                 onClick={() => setIsContactOpen(true)}
                 className="w-full py-5 bg-gradient-to-br from-red-600 to-blue-700 rounded-3xl font-black text-sm uppercase tracking-widest shadow-[0_10px_30px_-10px_rgba(59,130,246,0.5)] hover:shadow-blue-500/40 hover:-translate-y-1 transition-all active:translate-y-0"
               >
-                Hire Me / Contact
+                {t.sidebar.hire}
               </button>
             </motion.div>
 
@@ -101,7 +102,7 @@ function App() {
                   {/* Name Tag above head */}
                   <div className="absolute top-0 z-20 flex flex-col items-center gap-2 group-hover/window:-translate-y-2 transition-transform duration-500">
                     <div className="bg-black/60 backdrop-blur-xl border border-white/10 px-6 py-2 rounded-full shadow-2xl">
-                      <span className="text-sm font-black tracking-widest uppercase text-white drop-shadow-lg">MiniOmega_69</span>
+                      <span className="text-sm font-black tracking-widest uppercase text-white drop-shadow-lg">{t.hero.nametag}</span>
                     </div>
                     <div className="w-0.5 h-8 bg-gradient-to-b from-white/20 to-transparent" />
                   </div>
@@ -111,12 +112,12 @@ function App() {
                   {/* Speech Bubbles */}
                   <div className="absolute top-1/3 right-4 md:right-12 animate-bounce delay-700 pointer-events-none">
                     <div className="bg-blue-600/20 backdrop-blur-xl border border-blue-500/30 rounded-3xl rounded-bl-none p-5 max-w-[180px] shadow-2xl ring-1 ring-white/10">
-                      <p className="text-xs font-medium leading-relaxed">Welcome to my world! Let's build something epic! 🌍✨</p>
+                      <p className="text-xs font-medium leading-relaxed">{t.hero.bluePill}</p>
                     </div>
                   </div>
                   <div className="absolute bottom-1/3 left-4 md:left-12 animate-bounce pointer-events-none">
                     <div className="bg-red-600/20 backdrop-blur-xl border border-red-500/30 rounded-3xl rounded-br-none p-5 max-w-[180px] shadow-2xl ring-1 ring-white/10">
-                      <p className="text-xs font-medium leading-relaxed">Red or Blue pill? Choose your side! 💊🔥</p>
+                      <p className="text-xs font-medium leading-relaxed">{t.hero.redPill}</p>
                     </div>
                   </div>
                 </div>
@@ -129,10 +130,10 @@ function App() {
                     <Play className="text-red-500" size={24} />
                   </div>
                   <h3 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-tight">
-                    My Story
+                    {t.sections.story.title}
                   </h3>
                   <p className="text-gray-400 leading-relaxed font-medium">
-                    Started as a casual player, I've grown into a passionate content creator. I love building massive redstone contraptions and exploring new horizons.
+                    {t.sections.story.content}
                   </p>
                 </div>
                 <div className="bg-[#12121e]/80 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-10 hover:border-blue-500/30 transition-all group">
@@ -140,10 +141,10 @@ function App() {
                     <Info className="text-blue-500" size={24} />
                   </div>
                   <h3 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-tight">
-                     My Goals
+                     {t.sections.goals.title}
                   </h3>
                   <p className="text-gray-400 leading-relaxed font-medium">
-                    My goal is to create high-quality Minecraft content that inspires others. I'm always looking for ways to improve and connect with the community.
+                    {t.sections.goals.content}
                   </p>
                 </div>
               </div>
@@ -154,11 +155,11 @@ function App() {
           <section id="posts" className="space-y-12">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div className="space-y-2">
-                <h2 className="text-5xl font-black tracking-tighter">RECENT <span className="bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent">POSTS</span></h2>
-                <p className="text-gray-500 font-medium tracking-widest uppercase text-xs">Stay updated with my latest creations</p>
+                <h2 className="text-5xl font-black tracking-tighter uppercase">{t.sections.posts.title.split(' ')[0]} <span className="bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent">{t.sections.posts.title.split(' ')[1]}</span></h2>
+                <p className="text-gray-500 font-medium tracking-widest uppercase text-xs">{t.sections.posts.subtitle}</p>
               </div>
               <div className="h-0.5 flex-1 mx-0 md:mx-12 bg-gradient-to-r from-red-500/20 via-blue-500/20 to-transparent rounded-full mb-2" />
-              <button className="px-8 py-3 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition-all font-bold text-sm">View All</button>
+              <button className="px-8 py-3 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition-all font-bold text-sm">{t.sections.posts.viewAll}</button>
             </div>
             <PostList />
           </section>
@@ -175,9 +176,9 @@ function App() {
       {/* Footer */}
       <footer className="py-16 text-center border-t border-white/5 relative z-10">
         <div className="mb-6 flex justify-center gap-6">
-            <a href="#" className="text-gray-500 hover:text-white transition-colors">Terms</a>
-            <a href="#" className="text-gray-500 hover:text-white transition-colors">Privacy</a>
-            <a href="#" className="text-gray-500 hover:text-white transition-colors">YouTube</a>
+            <a href="https://instagram.com/jakubecz._.j" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors">Instagram</a>
+            <a href="https://tiktok.com/@MiniOmega_69" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors">TikTok</a>
+            <a href="https://youtube.com/@MiniOmega_69" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors">YouTube</a>
         </div>
         <p className="text-gray-600 font-medium">© 2024 MiniOmega_69. Built with React & <span className="text-blue-500">🧊 Blocks</span>.</p>
       </footer>

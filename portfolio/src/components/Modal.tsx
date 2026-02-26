@@ -36,7 +36,9 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
               <div className="flex items-center justify-between mb-8">
                 {title && (
                   <div>
-                    <h2 className="text-3xl font-black tracking-tight uppercase" dangerouslySetInnerHTML={{ __html: title }} />
+                    <h2 className="text-3xl font-black tracking-tight uppercase">
+                      {title}
+                    </h2>
                   </div>
                 )}
                 <button
