@@ -1,8 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   background-color: #0c0c0c;
@@ -19,24 +15,23 @@ body {
   font-family: 'Press Start 2P', cursive;
 }
 
-.text-bubble {
-  position: relative;
-  background: white;
-  border-radius: .4em;
-  padding: 10px;
-  color: black;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
 }
 
-.text-bubble:after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0; height: 0;
-  border: 10px solid transparent;
-  border-top-color: white;
-  border-bottom: 0;
-  margin-left: -10px;
-  margin-bottom: -10px;
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  33% { transform: translateY(-15px) rotate(5deg); }
+  66% { transform: translateY(5px) rotate(-5deg); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float-slow {
+  animation: float-slow 4s ease-in-out infinite;
 }

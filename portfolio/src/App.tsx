@@ -1,78 +1,188 @@
-import React from 'react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Navbar from './components/Navbar';
 import MinecraftCharacter from './components/MinecraftCharacter';
 import PostList from './components/PostList';
-import { Youtube, Twitch, Github } from 'lucide-react';
+import ContactModal from './components/ContactModal';
+import { Github, Youtube, Twitter, Trophy, MessageSquare, Play, Info } from 'lucide-react';
 
-const App: React.FC = () => {
+function App() {
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
+  const stats = [
+    { label: 'Followers', value: '1.2k', icon: <Youtube size={16} className="text-red-500" /> },
+    { label: 'Achievements', value: '85', icon: <Trophy size={16} className="text-yellow-500" /> },
+    { label: 'Servers Played', value: '12', icon: <MessageSquare size={16} className="text-blue-500" /> },
+  ];
+
   return (
-    <div className="min-h-screen bg-neutral-900 flex flex-col items-center overflow-x-hidden">
-      {/* Background Decor */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-0 left-0 w-1/2 h-full bg-brand-red opacity-10 blur-[120px]" />
-        <div className="absolute bottom-0 right-0 w-1/2 h-full bg-brand-blue opacity-10 blur-[120px]" />
+    <div className="min-h-screen bg-[#05050a] text-white selection:bg-blue-500 selection:text-white overflow-x-hidden">
+      {/* Immersive Background */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_30%,rgba(59,130,246,0.08)_0%,transparent_50%)]" />
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_80%_70%,rgba(239,68,68,0.08)_0%,transparent_50%)]" />
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] opacity-30 mix-blend-overlay" />
       </div>
 
-      {/* Navigation / Header */}
-      <header className="z-20 w-full px-8 py-10 flex justify-between items-center max-w-7xl">
-        <div className="minecraft-font text-brand-blue text-xl md:text-3xl border-b-4 border-brand-red pb-1 tracking-tighter">
-          MINIOMEGA<span className="text-brand-red">_69</span>
-        </div>
-        <div className="flex gap-6 md:gap-10">
-          <a href="#" className="text-white hover:text-brand-red transition-all transform hover:scale-125"><Youtube size={28} /></a>
-          <a href="#" className="text-white hover:text-brand-blue transition-all transform hover:scale-125"><Twitch size={28} /></a>
-          <a href="#" className="text-white hover:text-neutral-400 transition-all transform hover:scale-125"><Github size={28} /></a>
-        </div>
-      </header>
+      <Navbar />
 
-      {/* Hero Section */}
-      <main className="z-10 flex flex-col items-center w-full">
-        <section className="relative w-full min-h-[70vh] flex flex-col items-center justify-center py-20">
-          {/* Animated Text Bubbles */}
-          <div className="absolute top-[10%] left-[5%] md:left-[15%] lg:left-[20%] animate-bounce delay-150 z-20">
-            <div className="text-bubble minecraft-font text-[10px] md:text-xs border-2 border-brand-red p-3 max-w-[150px] md:max-w-none">
-              Minecraft is life! ⚔️
+      <main className="relative z-10 container mx-auto px-6 pt-32 pb-24">
+        <div className="max-w-7xl mx-auto space-y-16">
+
+          {/* Main Hero Section - Popup Style */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+            {/* Left Sidebar - Profile Info */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="lg:col-span-4 bg-[#12121e]/80 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-8 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.5)] flex flex-col items-center text-center group"
+            >
+              <div className="relative mb-8">
+                <div className="absolute -inset-2 bg-gradient-to-tr from-red-600 via-blue-600 to-red-600 rounded-full blur-md opacity-20 group-hover:opacity-60 transition duration-1000 animate-pulse"></div>
+                <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-[#12121e] bg-[#1a1a2e] shadow-2xl">
+                   <img src="https://minotar.net/helm/MiniOmega_69/256.png" alt="MiniOmega_69 Head" className="w-full h-full object-cover scale-110 hover:scale-125 transition-transform duration-500" />
+                </div>
+              </div>
+
+              <div className="mb-8">
+                <h1 className="text-4xl font-black tracking-tight mb-2 bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent">
+                  MiniOmega_69
+                </h1>
+                <p className="text-gray-400 font-medium tracking-wide uppercase text-xs">Minecraft Enthusiast & Creator</p>
+              </div>
+
+              <div className="w-full space-y-3 mb-8">
+                {stats.map((stat, idx) => (
+                  <div key={idx} className="bg-white/5 border border-white/5 rounded-2xl p-4 flex items-center justify-between group/stat hover:bg-white/10 transition-all hover:translate-x-1">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-white/5 rounded-lg group-hover/stat:bg-white/10 transition-colors">
+                        {stat.icon}
+                      </div>
+                      <span className="text-gray-400 text-sm font-medium">{stat.label}</span>
+                    </div>
+                    <span className="font-bold text-white tracking-wider">{stat.value}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex gap-4 mb-8">
+                <a href="#" className="p-4 bg-white/5 hover:bg-red-500/10 border border-white/10 rounded-2xl transition-all hover:scale-110"><Youtube size={22} className="text-red-500" /></a>
+                <a href="#" className="p-4 bg-white/5 hover:bg-blue-500/10 border border-white/10 rounded-2xl transition-all hover:scale-110"><Twitter size={22} className="text-blue-400" /></a>
+                <a href="#" className="p-4 bg-white/5 hover:bg-gray-500/10 border border-white/10 rounded-2xl transition-all hover:scale-110"><Github size={22} /></a>
+              </div>
+
+              <button
+                onClick={() => setIsContactOpen(true)}
+                className="w-full py-5 bg-gradient-to-br from-red-600 to-blue-700 rounded-3xl font-black text-sm uppercase tracking-widest shadow-[0_10px_30px_-10px_rgba(59,130,246,0.5)] hover:shadow-blue-500/40 hover:-translate-y-1 transition-all active:translate-y-0"
+              >
+                Hire Me / Contact
+              </button>
+            </motion.div>
+
+            {/* Right Main Content - Character & About */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="lg:col-span-8 flex flex-col gap-8"
+            >
+              {/* Character Window */}
+              <div className="bg-[#12121e]/80 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-8 shadow-2xl flex-1 relative overflow-hidden flex items-center justify-center min-h-[500px] group/window">
+                {/* Window Controls Decoration */}
+                <div className="absolute top-6 left-8 flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500/40 shadow-[0_0_10px_rgba(239,68,68,0.3)]" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/40 shadow-[0_0_10px_rgba(234,179,8,0.3)]" />
+                  <div className="w-3 h-3 rounded-full bg-green-500/40 shadow-[0_0_10px_rgba(34,197,94,0.3)]" />
+                </div>
+
+                <div className="relative w-full h-full flex items-center justify-center">
+                  {/* Name Tag above head */}
+                  <div className="absolute top-0 z-20 flex flex-col items-center gap-2 group-hover/window:-translate-y-2 transition-transform duration-500">
+                    <div className="bg-black/60 backdrop-blur-xl border border-white/10 px-6 py-2 rounded-full shadow-2xl">
+                      <span className="text-sm font-black tracking-widest uppercase text-white drop-shadow-lg">MiniOmega_69</span>
+                    </div>
+                    <div className="w-0.5 h-8 bg-gradient-to-b from-white/20 to-transparent" />
+                  </div>
+
+                  <MinecraftCharacter skin="MiniOmega_69" />
+
+                  {/* Speech Bubbles */}
+                  <div className="absolute top-1/3 right-4 md:right-12 animate-bounce delay-700 pointer-events-none">
+                    <div className="bg-blue-600/20 backdrop-blur-xl border border-blue-500/30 rounded-3xl rounded-bl-none p-5 max-w-[180px] shadow-2xl ring-1 ring-white/10">
+                      <p className="text-xs font-medium leading-relaxed">Welcome to my world! Let's build something epic! 🌍✨</p>
+                    </div>
+                  </div>
+                  <div className="absolute bottom-1/3 left-4 md:left-12 animate-bounce pointer-events-none">
+                    <div className="bg-red-600/20 backdrop-blur-xl border border-red-500/30 rounded-3xl rounded-br-none p-5 max-w-[180px] shadow-2xl ring-1 ring-white/10">
+                      <p className="text-xs font-medium leading-relaxed">Red or Blue pill? Choose your side! 💊🔥</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* About Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="bg-[#12121e]/80 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-10 hover:border-red-500/30 transition-all group">
+                  <div className="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-red-500/20 transition-colors">
+                    <Play className="text-red-500" size={24} />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-tight">
+                    My Story
+                  </h3>
+                  <p className="text-gray-400 leading-relaxed font-medium">
+                    Started as a casual player, I've grown into a passionate content creator. I love building massive redstone contraptions and exploring new horizons.
+                  </p>
+                </div>
+                <div className="bg-[#12121e]/80 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-10 hover:border-blue-500/30 transition-all group">
+                  <div className="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
+                    <Info className="text-blue-500" size={24} />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-tight">
+                     My Goals
+                  </h3>
+                  <p className="text-gray-400 leading-relaxed font-medium">
+                    My goal is to create high-quality Minecraft content that inspires others. I'm always looking for ways to improve and connect with the community.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Posts Section */}
+          <section id="posts" className="space-y-12">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <div className="space-y-2">
+                <h2 className="text-5xl font-black tracking-tighter">RECENT <span className="bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent">POSTS</span></h2>
+                <p className="text-gray-500 font-medium tracking-widest uppercase text-xs">Stay updated with my latest creations</p>
+              </div>
+              <div className="h-0.5 flex-1 mx-0 md:mx-12 bg-gradient-to-r from-red-500/20 via-blue-500/20 to-transparent rounded-full mb-2" />
+              <button className="px-8 py-3 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition-all font-bold text-sm">View All</button>
             </div>
-          </div>
-          <div className="absolute bottom-[25%] right-[5%] md:right-[15%] lg:right-[20%] animate-bounce z-20">
-            <div className="text-bubble minecraft-font text-[10px] md:text-xs border-2 border-brand-blue p-3 max-w-[150px] md:max-w-none">
-              Welcome to my world! 💎
-            </div>
-          </div>
+            <PostList />
+          </section>
 
-          <div className="relative group mb-10 mt-10">
-            <div className="absolute -inset-8 bg-gradient-to-r from-brand-red to-brand-blue blur-2xl opacity-20 group-hover:opacity-40 transition duration-1000" />
-            <MinecraftCharacter skinUrl="https://mc-heads.net/skin/MiniOmega_69" />
-          </div>
-
-          <div className="mt-8 text-center px-6 max-w-4xl">
-            <h1 className="minecraft-font text-3xl md:text-5xl lg:text-7xl mb-6 bg-clip-text text-transparent bg-gradient-to-r from-brand-blue via-white to-brand-red drop-shadow-2xl">
-              BUILDER & CREATOR
-            </h1>
-            <p className="text-neutral-300 text-base md:text-xl font-medium tracking-wide">
-              Bringing Minecraft worlds to life with code and creativity.
-              Explore my latest projects and videos below.
-            </p>
-          </div>
-        </section>
-
-        {/* Posts Section */}
-        <section id="posts" className="w-full bg-black/40 backdrop-blur-sm flex justify-center py-20 border-y-8 border-brand-blue">
-          <PostList />
-        </section>
+        </div>
       </main>
 
+      <AnimatePresence>
+        {isContactOpen && (
+          <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+        )}
+      </AnimatePresence>
+
       {/* Footer */}
-      <footer className="w-full py-16 flex flex-col items-center bg-black border-t border-white/5">
-        <div className="minecraft-font text-[10px] text-neutral-500 mb-6 tracking-widest">
-          © 2026 MINIOMEGA_69 • CRAFTED WITH PASSION
+      <footer className="py-16 text-center border-t border-white/5 relative z-10">
+        <div className="mb-6 flex justify-center gap-6">
+            <a href="#" className="text-gray-500 hover:text-white transition-colors">Terms</a>
+            <a href="#" className="text-gray-500 hover:text-white transition-colors">Privacy</a>
+            <a href="#" className="text-gray-500 hover:text-white transition-colors">YouTube</a>
         </div>
-        <div className="flex gap-6">
-          <div className="w-4 h-4 bg-brand-red shadow-[0_0_10px_rgba(255,0,51,0.5)]" />
-          <div className="w-4 h-4 bg-brand-blue shadow-[0_0_10px_rgba(0,102,255,0.5)]" />
-        </div>
+        <p className="text-gray-600 font-medium">© 2024 MiniOmega_69. Built with React & <span className="text-blue-500">🧊 Blocks</span>.</p>
       </footer>
     </div>
   );
-};
+}
 
 export default App;
