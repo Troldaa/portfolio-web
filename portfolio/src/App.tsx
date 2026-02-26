@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import MinecraftCharacter from './components/MinecraftCharacter';
 import PostList from './components/PostList';
 import ContactModal from './components/ContactModal';
-import { Youtube, Trophy, MessageSquare, Play, Info, Instagram, Music2 } from 'lucide-react';
+import { Youtube, Trophy, MessageSquare, Play, Info, Instagram, Music2, User } from 'lucide-react';
 import { useLanguage } from './context/LanguageContext';
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
   const stats = [
     { label: t.sidebar.exp, value: '0.5', icon: <Trophy size={16} className="text-yellow-500" /> },
     { label: t.sidebar.promoted, value: '3', icon: <MessageSquare size={16} className="text-blue-500" /> },
+    { label: t.sidebar.visitors, value: '1,248', icon: <User size={16} className="text-green-500" /> },
   ];
 
   return (

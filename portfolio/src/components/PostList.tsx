@@ -10,11 +10,14 @@ const PostList = () => {
     'lis-F0Wp0Eo'
   ];
 
+  const clicks = ['412', '856', '231'];
+
   const posts = t.sections.posts.items.map((item, idx) => ({
     ...item,
     id: String(idx + 1),
     type: 'short',
     url: `https://www.youtube.com/embed/${videoIds[idx]}`,
+    clicks: clicks[idx]
   }));
 
   return (
@@ -24,9 +27,15 @@ const PostList = () => {
 
           {/* Header */}
           <div className="p-6 flex items-center justify-between border-b border-white/5">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-              <span className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em]">{post.type}</span>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                <span className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em]">{post.type}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <ExternalLink size={10} className="text-gray-500" />
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{post.clicks} {t.sections.posts.clicks}</span>
+              </div>
             </div>
             <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
                <Calendar size={12} className="text-blue-500" />

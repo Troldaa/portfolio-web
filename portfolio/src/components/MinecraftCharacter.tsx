@@ -25,11 +25,6 @@ const MinecraftCharacter: React.FC<MinecraftCharacterProps> = ({ skin }) => {
       const walk = new skinview3d.WalkingAnimation();
       viewer.animation = walk;
 
-      // Custom rotation that slows down and speeds up
-      walk.addAnimation((player, progress) => {
-        player.rotation.y = progress * 0.5;
-      });
-
       const handleResize = () => {
         if (canvasRef.current && canvasRef.current.parentElement) {
           viewer.setSize(

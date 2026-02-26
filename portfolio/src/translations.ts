@@ -11,6 +11,7 @@ export const translations = {
       exp: 'Years of Experience',
       expUnit: 'years',
       promoted: 'Servers Promoted',
+      visitors: 'Total Visitors',
       socials: 'Social Links',
       hire: 'Hire Me / Contact',
     },
@@ -36,6 +37,7 @@ export const translations = {
         watchFull: 'Watch Full',
         visit: 'Visit site',
         watch: 'Watch',
+        clicks: 'Clicks',
         items: [
           {
             title: 'Hexado Hosting Promo',
@@ -79,6 +81,7 @@ export const translations = {
       exp: 'Roky zkušeností',
       expUnit: 'let',
       promoted: 'Propagované servery',
+      visitors: 'Celkem návštěvníků',
       socials: 'Sociální sítě',
       hire: 'Najmi mě / Kontakt',
     },
@@ -104,6 +107,7 @@ export const translations = {
         watchFull: 'Přehrát celé',
         visit: 'Navštívit web',
         watch: 'Přehrát',
+        clicks: 'Kliknutí',
         items: [
           {
             title: 'Hexado Hosting Promo',
