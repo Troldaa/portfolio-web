@@ -11,7 +11,7 @@ const PostList = () => {
     'lis-F0Wp0Eo'
   ];
 
-  const [clicks, setClicks] = useState([412, 856, 231]);
+  const [clicks, setClicks] = useState([0, 0, 0]);
   const [likedPosts, setLikedPosts] = useState<string[]>([]);
 
   useEffect(() => {
