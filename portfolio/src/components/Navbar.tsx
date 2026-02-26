@@ -1,4 +1,4 @@
-import { Home, User, Play, MessageSquare, Languages } from 'lucide-react';
+import { Home, User, Play, MessageSquare } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const Navbar = () => {
