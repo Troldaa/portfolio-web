@@ -31,7 +31,7 @@ function App() {
         <div className="max-w-7xl mx-auto space-y-16">
 
           {/* Main Hero Section - Popup Style */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          <div id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
 
             {/* Left Sidebar - Profile Info */}
             <motion.div
@@ -124,7 +124,7 @@ function App() {
               </div>
 
               {/* About Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div id="about" className="grid grid-cols-1 md:grid-cols-2 gap-8 scroll-mt-32">
                 <div className="bg-[#12121e]/80 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-10 hover:border-red-500/30 transition-all group">
                   <div className="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-red-500/20 transition-colors">
                     <Play className="text-red-500" size={24} />
@@ -152,7 +152,7 @@ function App() {
           </div>
 
           {/* Posts Section */}
-          <section id="posts" className="space-y-12">
+          <section id="posts" className="space-y-12 scroll-mt-32">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div className="space-y-2">
                 <h2 className="text-5xl font-black tracking-tighter uppercase">{t.sections.posts.title.split(' ')[0]} <span className="bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent">{t.sections.posts.title.split(' ')[1]}</span></h2>
@@ -174,7 +174,7 @@ function App() {
       </AnimatePresence>
 
       {/* Footer */}
-      <footer className="py-16 text-center border-t border-white/5 relative z-10">
+      <footer id="contact" className="py-16 text-center border-t border-white/5 relative z-10">
         <div className="mb-6 flex justify-center gap-6">
             <a href="https://instagram.com/jakubecz._.j" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors">Instagram</a>
             <a href="https://tiktok.com/@MiniOmega_69" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors">TikTok</a>

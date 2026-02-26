@@ -34,6 +34,26 @@ export const translations = {
         subtitle: 'Stay updated with my latest creations',
         viewAll: 'View All',
         watchFull: 'Watch Full',
+        visit: 'Visit site',
+        watch: 'Watch',
+        items: [
+          {
+            title: 'Hexado Hosting Promo',
+            description: 'Promo for hosting, good czech hosting for FiveM, Minecraft, Discord bots and more.',
+            link: 'https://www.hexado.pro/',
+            date: 'Latest',
+          },
+          {
+            title: 'Europe Minecraft SMP',
+            description: 'Promo for europe minecraft SMP server. Join the community!',
+            date: 'Recently',
+          },
+          {
+            title: 'Survival Server (RIP)',
+            description: 'Promo for czech survival server, the server is dead now xD',
+            date: 'Archive',
+          },
+        ]
       },
     },
     contact: {
@@ -82,6 +102,26 @@ export const translations = {
         subtitle: 'Sleduj mou nejnovější tvorbu',
         viewAll: 'Zobrazit vše',
         watchFull: 'Přehrát celé',
+        visit: 'Navštívit web',
+        watch: 'Přehrát',
+        items: [
+          {
+            title: 'Hexado Hosting Promo',
+            description: 'Promo pro hosting, kvalitní český hosting pro FiveM, Minecraft, Discord boty a další.',
+            link: 'https://www.hexado.pro/',
+            date: 'Nejnovější',
+          },
+          {
+            title: 'Europe Minecraft SMP',
+            description: 'Promo pro evropský Minecraft SMP server. Připoj se ke komunitě!',
+            date: 'Nedávno',
+          },
+          {
+            title: 'Survival Server (RIP)',
+            description: 'Promo pro český survival server, server je teď bohužel mrtvý xD',
+            date: 'Archiv',
+          },
+        ]
       },
     },
     contact: {
