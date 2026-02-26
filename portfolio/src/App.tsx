@@ -180,7 +180,7 @@ function App() {
             <a href="https://tiktok.com/@MiniOmega_69" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors">TikTok</a>
             <a href="https://youtube.com/@MiniOmega_69" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors">YouTube</a>
         </div>
-        <p className="text-gray-600 font-medium">© 2024 MiniOmega_69. Built with React & <span className="text-blue-500">🧊 Blocks</span>.</p>
+        <p className="text-gray-600 font-medium">© 2026 MiniOmega_69. Built with React & <span className="text-blue-500">🧊 Blocks</span>.</p>
       </footer>
     </div>
   );
