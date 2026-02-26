@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Calendar, ExternalLink, Heart } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -12,8 +12,23 @@ const PostList = () => {
   ];
 
   const [clicks, setClicks] = useState([412, 856, 231]);
+  const [likedPosts, setLikedPosts] = useState<string[]>([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('liked_posts');
+    if (saved) {
+      setLikedPosts(JSON.parse(saved));
+    }
+  }, []);
 
   const handleIncrement = (index: number) => {
+    const postId = videoIds[index];
+    if (likedPosts.includes(postId)) return;
+
+    const newLiked = [...likedPosts, postId];
+    setLikedPosts(newLiked);
+    localStorage.setItem('liked_posts', JSON.stringify(newLiked));
+
     const newClicks = [...clicks];
     newClicks[index] += 1;
     setClicks(newClicks);
@@ -21,10 +36,11 @@ const PostList = () => {
 
   const posts = t.sections.posts.items.map((item, idx) => ({
     ...item,
-    id: String(idx + 1),
+    id: videoIds[idx],
     type: 'short',
     url: `https://www.youtube.com/embed/${videoIds[idx]}`,
-    clicks: clicks[idx]
+    clicks: clicks[idx],
+    isLiked: likedPosts.includes(videoIds[idx])
   }));
 
   return (
@@ -39,13 +55,10 @@ const PostList = () => {
                 <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
                 <span className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em]">{post.type}</span>
               </div>
-              <button
-                onClick={() => handleIncrement(idx)}
-                className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 px-2 py-1 rounded-lg transition-colors border border-white/5 group/btn"
-              >
-                <Heart size={12} className="text-red-500 group-hover/btn:fill-red-500 transition-all" />
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{post.clicks}</span>
-              </button>
+              <div className="flex items-center gap-1.5 bg-white/5 px-2 py-1 rounded-lg border border-white/5">
+                <Heart size={12} className="text-red-500/50" />
+                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{post.clicks}</span>
+              </div>
             </div>
             <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
                <Calendar size={12} className="text-blue-500" />
@@ -83,9 +96,14 @@ const PostList = () => {
                 <div className="flex items-center gap-4">
                   <button
                     onClick={() => handleIncrement(idx)}
-                    className="flex items-center gap-2 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 px-3 py-1.5 rounded-xl transition-all group/like active:scale-90"
+                    disabled={post.isLiked}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-xl transition-all group/like active:scale-90 ${
+                      post.isLiked
+                        ? 'bg-red-500/20 border border-red-500/30 cursor-not-allowed'
+                        : 'bg-red-500/10 hover:bg-red-500/20 border border-red-500/20'
+                    }`}
                   >
-                    <Heart size={14} className="text-red-500 group-hover/like:fill-red-500" />
+                    <Heart size={14} className={`text-red-500 ${post.isLiked ? 'fill-red-500' : 'group-hover/like:fill-red-500'}`} />
                     <span className="text-[10px] font-black text-red-500 uppercase tracking-widest">{post.clicks}</span>
                   </button>
 
