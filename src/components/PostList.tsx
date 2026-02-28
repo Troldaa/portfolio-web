@@ -15,9 +15,14 @@ const PostList = () => {
   const [likedPosts, setLikedPosts] = useState<string[]>([]);
 
   useEffect(() => {
-    const saved = localStorage.getItem('liked_posts');
-    if (saved) {
-      setLikedPosts(JSON.parse(saved));
+    const savedLikes = localStorage.getItem('liked_posts');
+    if (savedLikes) {
+      setLikedPosts(JSON.parse(savedLikes));
+    }
+
+    const savedClicks = localStorage.getItem('post_clicks');
+    if (savedClicks) {
+      setClicks(JSON.parse(savedClicks));
     }
   }, []);
 
@@ -32,6 +37,7 @@ const PostList = () => {
     const newClicks = [...clicks];
     newClicks[index] += 1;
     setClicks(newClicks);
+    localStorage.setItem('post_clicks', JSON.stringify(newClicks));
   };
 
   const posts = t.sections.posts.items.map((item, idx) => ({

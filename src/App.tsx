@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import MinecraftCharacter from './components/MinecraftCharacter';
@@ -10,11 +10,30 @@ import { useLanguage } from './context/LanguageContext';
 function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const { t } = useLanguage();
+  const [visitorCount, setVisitorCount] = useState(84);
+
+  useEffect(() => {
+    const savedCount = localStorage.getItem('visitor_count');
+    if (savedCount) {
+      setVisitorCount(parseInt(savedCount, 10));
+    }
+  }, []);
+
+  const handleVisitorClick = () => {
+    const newCount = visitorCount + 1;
+    setVisitorCount(newCount);
+    localStorage.setItem('visitor_count', newCount.toString());
+  };
 
   const stats = [
-    { label: t.sidebar.exp, value: '0.5', icon: <Trophy size={16} className="text-yellow-500" /> },
+    { label: t.sidebar.exp, value: '0.5', icon: <Trophy size={16} className="text-yellow-500" />, unit: t.sidebar.expUnit },
     { label: t.sidebar.promoted, value: '3', icon: <MessageSquare size={16} className="text-blue-500" /> },
-    { label: t.sidebar.visitors, value: '84', icon: <User size={16} className="text-green-500" /> },
+    {
+      label: t.sidebar.visitors,
+      value: visitorCount.toString(),
+      icon: <User size={16} className="text-green-500" />,
+      onClick: handleVisitorClick
+    },
   ];
 
   return (
@@ -57,14 +76,18 @@ function App() {
 
               <div className="w-full space-y-3 mb-8">
                 {stats.map((stat, idx) => (
-                  <div key={idx} className="bg-white/5 border border-white/5 rounded-2xl p-4 flex items-center justify-between group/stat hover:bg-white/10 transition-all hover:translate-x-1">
+                  <div
+                    key={idx}
+                    onClick={stat.onClick}
+                    className={`bg-white/5 border border-white/5 rounded-2xl p-4 flex items-center justify-between group/stat transition-all hover:translate-x-1 ${stat.onClick ? 'cursor-pointer hover:bg-white/15 hover:border-green-500/30 active:scale-95' : 'hover:bg-white/10'}`}
+                  >
                     <div className="flex items-center gap-3">
                       <div className="p-2 bg-white/5 rounded-lg group-hover/stat:bg-white/10 transition-colors">
                         {stat.icon}
                       </div>
                       <span className="text-gray-400 text-sm font-medium">{stat.label}</span>
                     </div>
-                    <span className="font-bold text-white tracking-wider">{stat.value} {idx === 0 ? t.sidebar.expUnit : ''}</span>
+                    <span className="font-bold text-white tracking-wider">{stat.value} {stat.unit || ''}</span>
                   </div>
                 ))}
               </div>
